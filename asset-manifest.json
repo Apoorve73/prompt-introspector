@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/prompt-introspector/static/css/main.e6c13ad2.css",
+    "main.js": "/prompt-introspector/static/js/main.2e1531cf.js",
+    "static/js/453.670e15c7.chunk.js": "/prompt-introspector/static/js/453.670e15c7.chunk.js",
+    "index.html": "/prompt-introspector/index.html",
+    "main.e6c13ad2.css.map": "/prompt-introspector/static/css/main.e6c13ad2.css.map",
+    "main.2e1531cf.js.map": "/prompt-introspector/static/js/main.2e1531cf.js.map",
+    "453.670e15c7.chunk.js.map": "/prompt-introspector/static/js/453.670e15c7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.2e1531cf.js"
+  ]
+}
