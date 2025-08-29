@@ -15,7 +15,7 @@ const PromptIntrospector = () => {
   // Real OpenAI tokenization via backend
   const realTokenize = async (text) => {
     try {
-      const response = await fetch(`${backendUrl}/api/tokenize`, {
+             const response = await fetch(`${backendUrl}/tokenize`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +95,7 @@ const PromptIntrospector = () => {
   useEffect(() => {
     const checkDefaultKey = async () => {
       try {
-        const response = await fetch(`${backendUrl}/api/default-key`);
+        const response = await fetch(`${backendUrl}/default-key`);
         if (response.ok) {
           const data = await response.json();
           if (data.hasDefaultKey) {
@@ -125,7 +125,7 @@ const PromptIntrospector = () => {
       }
 
       // Set the API key on the backend for user-provided keys
-      await fetch(`${backendUrl}/api/set-key`, {
+             await fetch(`${backendUrl}/set-key`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -139,7 +139,7 @@ const PromptIntrospector = () => {
 
     try {
       // Make streaming request to our backend
-      const response = await fetch(`${backendUrl}/api/chat/completions`, {
+             const response = await fetch(`${backendUrl}/chat/completions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
