@@ -17,7 +17,14 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://apoorve73.github.io',
+    'https://prompt-introspector.vercel.app'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 // Removed static file serving since this is an API server
 
