@@ -1,23 +1,20 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "server-vercel.js",
-            "use": "@vercel/node"
-        }
-    ],
-    "routes": [
-        {
+    "builds": [{
+        "src": "server-vercel.js",
+        "use": "@vercel/node"
+    }],
+    "routes": [{
             "src": "/api/(.*)",
-            "dest": "/server.js"
+            "dest": "/server-vercel.js"
         },
         {
             "src": "/(.*)",
-            "dest": "/server.js"
+            "dest": "/server-vercel.js"
         }
     ],
     "functions": {
-        "server.js": {
+        "server-vercel.js": {
             "runtime": "nodejs18.x"
         }
     },

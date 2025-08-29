@@ -15,7 +15,7 @@ app.use(
         origin: [
             "http://localhost:3000",
             "https://apoorve73.github.io",
-            "https://prompt-introspector.vercel.app",
+            "https://prompt-introspector-apoorve73-apoorve73s-projects.vercel.app",
         ],
         credentials: true,
     })
@@ -50,7 +50,7 @@ app.post("/api/set-key", (req, res) => {
 });
 
 // Endpoint to validate API key
-app.post("/api/validate-key", async (req, res) => {
+app.post("/api/validate-key", async(req, res) => {
     const { apiKey: providedKey } = req.body;
 
     // Use provided key or fall back to environment variable
@@ -90,7 +90,7 @@ app.post("/api/validate-key", async (req, res) => {
 });
 
 // Simple tokenization endpoint (without OpenAI dependency for now)
-app.post("/api/tokenize", async (req, res) => {
+app.post("/api/tokenize", async(req, res) => {
     const { text } = req.body;
 
     if (!text) {
@@ -108,10 +108,10 @@ app.post("/api/tokenize", async (req, res) => {
             attention: 0,
         }));
 
-        res.json({ 
-            tokens, 
+        res.json({
+            tokens,
             totalTokens: tokens.length,
-            message: "Basic tokenization (OpenAI integration coming soon)"
+            message: "Basic tokenization (OpenAI integration coming soon)",
         });
     } catch (error) {
         console.error("Tokenization error:", error);
