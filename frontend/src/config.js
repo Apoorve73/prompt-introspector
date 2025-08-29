@@ -2,12 +2,12 @@
 const config = {
     // Development environment (localhost)
     development: {
-        apiBaseUrl: "http://localhost:3001/api",
+        apiBaseUrl: "http://localhost:3001",
     },
     // Production environment (GitHub Pages)
     production: {
         // Vercel backend deployment
-        apiBaseUrl: "https://prompt-introspector-apoorve73-apoorve73s-projects.vercel.app/api",
+        apiBaseUrl: "https://prompt-introspector-apoorve73-apoorve73s-projects.vercel.app",
     },
 };
 
