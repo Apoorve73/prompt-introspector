@@ -6,8 +6,8 @@ const config = {
     },
     // Production environment (GitHub Pages)
     production: {
-        // You'll need to update this URL to your deployed backend
-        apiBaseUrl: "https://your-backend-url.com/api",
+        // Vercel backend deployment
+        apiBaseUrl: "https://prompt-introspector.vercel.app/api",
     },
 };
 
