@@ -15,12 +15,12 @@ const PromptIntrospector = () => {
   // Real OpenAI tokenization via backend
   const realTokenize = async (text) => {
     try {
-             const response = await fetch(`${backendUrl}/tokenize`, {
+      const response = await fetch(`${backendUrl}/tokenize`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "X-Session-Id": sessionId,
-          "X-Vercel-Id": 't9QvoyOSCSCewvgyA9MXr0Nc'
+          "X-Vercel-Id": "t9QvoyOSCSCewvgyA9MXr0Nc",
         },
         body: JSON.stringify({ text }),
       });
@@ -97,10 +97,11 @@ const PromptIntrospector = () => {
     const checkDefaultKey = async () => {
       try {
         const response = await fetch(`${backendUrl}/default-key`, {
-         headers: {
-           'X-Vercel-Id': 't9QvoyOSCSCewvgyA9MXr0Nc'
-         }
-       });
+          method: "GET",
+          headers: {
+            "X-Vercel-Id": "t9QvoyOSCSCewvgyA9MXr0Nc",
+          },
+        });
         if (response.ok) {
           const data = await response.json();
           if (data.hasDefaultKey) {
@@ -130,12 +131,12 @@ const PromptIntrospector = () => {
       }
 
       // Set the API key on the backend for user-provided keys
-                    await fetch(`${backendUrl}/set-key`, {
-         method: "POST",
-         headers: {
-           "Content-Type": "application/json",
-           "X-Vercel-Id": 't9QvoyOSCSCewvgyA9MXr0Nc'
-         },
+      await fetch(`${backendUrl}/set-key`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Vercel-Id": "t9QvoyOSCSCewvgyA9MXr0Nc",
+        },
         body: JSON.stringify({
           apiKey,
           sessionId,
@@ -145,13 +146,13 @@ const PromptIntrospector = () => {
 
     try {
       // Make streaming request to our backend
-                           const response = await fetch(`${backendUrl}/chat/completions`, {
-                 method: "POST",
-                 headers: {
-                   "Content-Type": "application/json",
-                   "X-Session-Id": sessionId,
-                   "X-Vercel-Id": 't9QvoyOSCSCewvgyA9MXr0Nc'
-                 },
+      const response = await fetch(`${backendUrl}/chat/completions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Session-Id": sessionId,
+          "X-Vercel-Id": "t9QvoyOSCSCewvgyA9MXr0Nc",
+        },
         body: JSON.stringify({
           model: "gpt-3.5-turbo",
           messages: [
