@@ -20,7 +20,7 @@ const PromptIntrospector = () => {
         headers: {
           "Content-Type": "application/json",
           "X-Session-Id": sessionId,
-          "X-Vercel-Id": process.env.REACT_APP_VERCEL_ID || 't9QvoyOSCSCewvgyA9MXr0Nc'
+          "X-Vercel-Id": 't9QvoyOSCSCewvgyA9MXr0Nc'
         },
         body: JSON.stringify({ text }),
       });
@@ -98,7 +98,7 @@ const PromptIntrospector = () => {
       try {
         const response = await fetch(`${backendUrl}/default-key`, {
          headers: {
-           'X-Vercel-Id': process.env.REACT_APP_VERCEL_ID || 't9QvoyOSCSCewvgyA9MXr0Nc'
+           'X-Vercel-Id': 't9QvoyOSCSCewvgyA9MXr0Nc'
          }
        });
         if (response.ok) {
@@ -134,7 +134,7 @@ const PromptIntrospector = () => {
          method: "POST",
          headers: {
            "Content-Type": "application/json",
-           "X-Vercel-Id": process.env.REACT_APP_VERCEL_ID || 't9QvoyOSCSCewvgyA9MXr0Nc'
+           "X-Vercel-Id": 't9QvoyOSCSCewvgyA9MXr0Nc'
          },
         body: JSON.stringify({
           apiKey,
@@ -150,7 +150,7 @@ const PromptIntrospector = () => {
                  headers: {
                    "Content-Type": "application/json",
                    "X-Session-Id": sessionId,
-                   "X-Vercel-Id": process.env.REACT_APP_VERCEL_ID || 't9QvoyOSCSCewvgyA9MXr0Nc'
+                   "X-Vercel-Id": 't9QvoyOSCSCewvgyA9MXr0Nc'
                  },
         body: JSON.stringify({
           model: "gpt-3.5-turbo",
