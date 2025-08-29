@@ -20,6 +20,7 @@ const PromptIntrospector = () => {
         headers: {
           "Content-Type": "application/json",
           "X-Session-Id": sessionId,
+          "X-Vercel-Id": process.env.REACT_APP_VERCEL_ID || 'your-vercel-id-here'
         },
         body: JSON.stringify({ text }),
       });
@@ -95,7 +96,11 @@ const PromptIntrospector = () => {
   useEffect(() => {
     const checkDefaultKey = async () => {
       try {
-        const response = await fetch(`${backendUrl}/default-key`);
+        const response = await fetch(`${backendUrl}/default-key`, {
+         headers: {
+           'X-Vercel-Id': process.env.REACT_APP_VERCEL_ID || 'your-vercel-id-here'
+         }
+       });
         if (response.ok) {
           const data = await response.json();
           if (data.hasDefaultKey) {
@@ -125,11 +130,12 @@ const PromptIntrospector = () => {
       }
 
       // Set the API key on the backend for user-provided keys
-             await fetch(`${backendUrl}/set-key`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+                    await fetch(`${backendUrl}/set-key`, {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json",
+           "X-Vercel-Id": process.env.REACT_APP_VERCEL_ID || 'your-vercel-id-here'
+         },
         body: JSON.stringify({
           apiKey,
           sessionId,
@@ -139,12 +145,13 @@ const PromptIntrospector = () => {
 
     try {
       // Make streaming request to our backend
-             const response = await fetch(`${backendUrl}/chat/completions`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Session-Id": sessionId,
-        },
+                           const response = await fetch(`${backendUrl}/chat/completions`, {
+                 method: "POST",
+                 headers: {
+                   "Content-Type": "application/json",
+                   "X-Session-Id": sessionId,
+                   "X-Vercel-Id": process.env.REACT_APP_VERCEL_ID || 'your-vercel-id-here'
+                 },
         body: JSON.stringify({
           model: "gpt-3.5-turbo",
           messages: [
