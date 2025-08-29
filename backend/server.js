@@ -17,14 +17,16 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://apoorve73.github.io',
-    'https://prompt-introspector.vercel.app'
-  ],
-  credentials: true
-}));
+app.use(
+    cors({
+        origin: [
+            "http://localhost:3000",
+            "https://apoorve73.github.io",
+            "https://prompt-introspector.vercel.app",
+        ],
+        credentials: true,
+    })
+);
 app.use(express.json());
 // Removed static file serving since this is an API server
 
@@ -123,7 +125,11 @@ function improvedTokenize(text, targetTokenCount) {
         const charType = getTokenType(char);
 
         // If we're starting a new token type, save the previous one
-        if (currentType !== null && charType !== currentType && currentWord !== "") {
+        if (
+            currentType !== null &&
+            charType !== currentType &&
+            currentWord !== ""
+        ) {
             tokens.push({
                 id: tokenId++,
                 text: currentWord,
