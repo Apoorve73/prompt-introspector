@@ -1,6 +1,6 @@
 {
-    "name": "frontend",
-    "version": "0.1.0",
+    "name": "prompt-introspector-frontend",
+    "version": "1.0.0",
     "private": true,
     "homepage": "https://apoorve73.github.io/prompt-introspector",
     "dependencies": {
@@ -8,28 +8,40 @@
         "@testing-library/jest-dom": "^6.8.0",
         "@testing-library/react": "^16.3.0",
         "@testing-library/user-event": "^13.5.0",
-        "react": "^19.1.1",
-        "react-dom": "^19.1.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-markdown": "^10.1.0",
         "react-scripts": "5.0.1",
         "web-vitals": "^2.1.4"
     },
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "test": "react-scripts test",
+        "test": "react-scripts test --coverage --watchAll=false",
+        "test:watch": "react-scripts test",
+        "test:coverage": "react-scripts test --coverage --watchAll=false",
         "eject": "react-scripts eject",
         "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,md}\"",
         "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,md}\"",
         "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
         "lint:fix": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
+        "analyze": "npm run build && npx bundle-analyzer build/static/js/*.js",
         "predeploy": "npm run build",
-        "deploy": "gh-pages -d build"
+        "deploy": "gh-pages -d build",
+        "clean": "rm -rf build node_modules package-lock.json",
+        "postinstall": "echo 'Frontend dependencies installed successfully'"
     },
     "eslintConfig": {
         "extends": [
             "react-app",
             "react-app/jest"
-        ]
+        ],
+        "rules": {
+            "no-unused-vars": "warn",
+            "no-console": "warn",
+            "prefer-const": "error",
+            "no-var": "error"
+        }
     },
     "browserslist": {
         "production": [
@@ -44,6 +56,25 @@
         ]
     },
     "devDependencies": {
-        "gh-pages": "^6.3.0"
+        "gh-pages": "^6.3.0",
+        "eslint": "^8.55.0",
+        "prettier": "^3.1.0",
+        "webpack-bundle-analyzer": "^4.10.1"
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "src/**/*.{js,jsx}",
+            "!src/index.js",
+            "!src/reportWebVitals.js",
+            "!src/setupTests.js"
+        ],
+        "coverageThreshold": {
+            "global": {
+                "branches": 70,
+                "functions": 70,
+                "lines": 70,
+                "statements": 70
+            }
+        }
     }
 }
