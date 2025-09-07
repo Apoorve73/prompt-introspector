@@ -204,12 +204,12 @@
 }
 
 .token-word {
-  background-color: rgba(34, 139, 34, var(--attention-intensity, 0.5));
-  color: var(--color-gray-900);
+    background-color: rgba(34, 139, 34, var(--attention-intensity, 0.5));
+    color: var(--color-gray-900);
 }
 
 .token-word.high-intensity {
-  color: var(--color-white);
+    color: var(--color-white);
 }
 
 .token-punctuation {

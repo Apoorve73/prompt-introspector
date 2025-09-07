@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import SafeMarkdown from "./SafeMarkdown";
+import { useOpenAI } from "../hooks/useOpenAI";
 
 // Constants
 const DEFAULT_PROMPT = "Explain why the sky is blue.";
@@ -84,9 +85,9 @@ const TokenIntrospector = ({
     apiKey,
     backendUrl,
     sessionId,
-    realTokenize,
-    callOpenAI,
 }) => {
+    // Use the custom hook for OpenAI functionality
+    const { tokenize, generateResponse, isLoading: openAILoading, error: openAIError } = useOpenAI(apiKey, backendUrl, sessionId);
     const [prompt, setPrompt] = useState(DEFAULT_PROMPT);
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [currentTokenIndex, setCurrentTokenIndex] = useState(-1);
@@ -111,7 +112,7 @@ const TokenIntrospector = ({
 
         try {
             // Tokenize the prompt
-            const newTokens = await realTokenize(prompt);
+            const newTokens = await tokenize(prompt);
             setTokens(newTokens);
 
             // Process each token with simulated reasoning
@@ -167,7 +168,7 @@ const TokenIntrospector = ({
             ]);
 
             // Get response from OpenAI with streaming
-            const response = await callOpenAI(prompt, (chunk, fullResponse) => {
+            const response = await generateResponse(prompt, (chunk, fullResponse) => {
                 setStreamedResponse(fullResponse);
             });
 
@@ -178,7 +179,7 @@ const TokenIntrospector = ({
         } finally {
             setIsAnalyzing(false);
         }
-    }, [prompt, apiKey, realTokenize, callOpenAI]);
+    }, [prompt, apiKey, tokenize, generateResponse]);
 
     return ( <
         >
@@ -237,18 +238,18 @@ const TokenIntrospector = ({
                 fontWeight: "bold",
                 transition: "background-color 0.2s",
             }
-        } > { isAnalyzing ? "🔄 Analyzing..." : "🚀 Analyze with OpenAI" } { " " } <
-        /button>{" "} < /
-        div > { " " } { /* Error Display */ } { " " } {
-            error && ( <
+        } > { isAnalyzing ? "🔄 Analyzing..." : "🚀 Analyze with OpenAI" } <
+        /button> < /
+        div > { /* Error Display */ } {
+            (error || openAIError) && ( <
                 div className = "alert alert-error"
                 style = {
                     { marginBottom: "20px" }
                 } >
-                Error: { error } <
+                Error: { error || openAIError } <
                 /div>
             )
-        } { " " } { /* Token Visualization */ } { " " } {
+        } { /* Token Visualization */ } { " " } {
             tokens.length > 0 && ( <
                 div style = {
                     { marginBottom: "30px" }
@@ -399,7 +400,7 @@ const TokenIntrospector = ({
                         } %
                         <
                         /div>{" "} < /
-                        div >
+                    div >
                 ))
         } { " " } <
         /div>{" "} < /
@@ -439,7 +440,7 @@ const TokenIntrospector = ({
             )
         } { " " } <
         /div>{" "} < /
-        div >
+    div >
 )
 } { " " } { /* Final Response */ } { " " } {
     output && ( <

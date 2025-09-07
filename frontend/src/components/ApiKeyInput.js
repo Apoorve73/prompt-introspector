@@ -1,5 +1,4 @@
 import React from 'react';
-import { useApiKey } from '../hooks/useApiKey';
 
 const ApiKeyInput = ({ 
   apiKey, 
@@ -8,7 +7,8 @@ const ApiKeyInput = ({
   backendUrl,
   className = '' 
 }) => {
-  const { validationError, hasDefaultKey } = useApiKey(backendUrl);
+  // Check if using default key
+  const hasDefaultKey = apiKey === '***DEFAULT_KEY***';
 
   return (
     <div className={`card ${className}`}>
@@ -28,15 +28,8 @@ const ApiKeyInput = ({
             onChange={(e) => setApiKey(e.target.value)}
             disabled={isAnalyzing}
             placeholder="Enter your OpenAI API key (sk-...)"
-            className={`input ${validationError ? 'border-red-500' : ''}`}
-            aria-describedby={validationError ? 'api-key-error' : undefined}
+            className="input"
           />
-        )}
-
-        {validationError && (
-          <div id="api-key-error" className="alert alert-error" style={{ marginTop: 'var(--spacing-sm)' }}>
-            {validationError}
-          </div>
         )}
 
         <div className="text-sm text-gray-600" style={{ marginTop: 'var(--spacing-sm)' }}>
