@@ -1,93 +1,124 @@
 # Deployment Guide
 
-## Overview
-This project consists of two parts:
-- **Frontend**: React application (can be deployed to GitHub Pages)
-- **Backend**: Express.js server (needs to be deployed to a hosting service)
+This guide explains how to deploy the Prompt Introspector application to GitHub Pages and Vercel.
 
-## Frontend Deployment (GitHub Pages)
+## 🚀 GitHub Pages Deployment (Frontend)
 
-### 1. Build and Deploy
+### Automatic Deployment
+
+The frontend automatically deploys to GitHub Pages when you push to the `main` branch.
+
+**Requirements:**
+1. GitHub Pages must be enabled in your repository settings
+2. Source should be set to "GitHub Actions"
+
+### Manual Setup
+
+1. **Enable GitHub Pages:**
+   - Go to your repository → Settings → Pages
+   - Source: "GitHub Actions"
+
+2. **Configure Repository:**
+   - The `homepage` field in `frontend/package.json` should match your GitHub Pages URL
+   - Current: `"https://apoorve73.github.io/prompt-introspector"`
+
+3. **Deploy Manually:**
+   ```bash
+   cd frontend
+   npm run build
+   npm run deploy
+   ```
+
+### Workflow Files
+
+- `.github/workflows/deploy.yml` - Simple frontend deployment
+- `.github/workflows/ci-cd.yml` - Full CI/CD pipeline with testing
+
+## 🔧 Vercel Deployment (Backend)
+
+### Automatic Deployment
+
+The backend can be deployed to Vercel using GitHub Actions.
+
+**Setup:**
+1. Create a Vercel project
+2. Add these secrets to your GitHub repository:
+   - `VERCEL_TOKEN`: Your Vercel API token
+   - `VERCEL_ORG_ID`: Your Vercel organization ID
+   - `VERCEL_PROJECT_ID`: Your Vercel project ID
+
+### Manual Deployment
+
+1. **Install Vercel CLI:**
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Deploy:**
+   ```bash
+   cd backend
+   vercel --prod
+   ```
+
+## 📋 Environment Variables
+
+### Frontend (.env)
+```env
+REACT_APP_BACKEND_URL=https://your-backend-url.vercel.app
+```
+
+### Backend (.env)
+```env
+OPENAI_API_KEY=your-openai-api-key
+NODE_ENV=production
+PORT=3001
+```
+
+## 🔍 Troubleshooting
+
+### GitHub Pages Not Updating
+
+1. **Check GitHub Actions:**
+   - Go to Actions tab in your repository
+   - Look for failed workflows
+
+2. **Verify Settings:**
+   - Repository → Settings → Pages
+   - Source should be "GitHub Actions"
+
+3. **Check Permissions:**
+   - Repository → Settings → Actions → General
+   - "Workflow permissions" should allow "Read and write permissions"
+
+### Common Issues
+
+1. **Build Failures:**
+   - Check Node.js version compatibility
+   - Ensure all dependencies are installed
+
+2. **CORS Issues:**
+   - Update `REACT_APP_BACKEND_URL` in frontend
+   - Verify backend CORS configuration
+
+3. **API Key Issues:**
+   - Ensure environment variables are set correctly
+   - Check API key permissions
+
+## 🎯 Quick Commands
+
 ```bash
-cd frontend
-npm run deploy
+# Frontend deployment
+cd frontend && npm run deploy
+
+# Backend deployment (if using Vercel CLI)
+cd backend && vercel --prod
+
+# Full project build
+npm run build  # In both frontend and backend directories
 ```
 
-This will:
-- Build the production version of your React app
-- Deploy it to the `gh-pages` branch
-- Make it available at: `https://apoorve73.github.io/prompt-introspector`
+## 📊 Monitoring
 
-### 2. Enable GitHub Pages
-1. Go to your GitHub repository
-2. Click on "Settings" tab
-3. Scroll down to "Pages" section
-4. Set source to "Deploy from a branch"
-5. Select `gh-pages` branch and `/ (root)` folder
-6. Click "Save"
-
-## Backend Deployment
-
-Since your backend needs to run as a server, you'll need to deploy it to a hosting service. Here are some options:
-
-### Option 1: Heroku (Recommended for beginners)
-1. Create a Heroku account
-2. Install Heroku CLI
-3. Deploy using:
-```bash
-cd backend
-heroku create your-app-name
-git push heroku main
-```
-
-### Option 2: Vercel
-1. Create a Vercel account
-2. Connect your GitHub repository
-3. Set build settings for the backend folder
-
-### Option 3: Railway
-1. Create a Railway account
-2. Connect your GitHub repository
-3. Deploy the backend folder
-
-## Configuration
-
-### Frontend Configuration
-Update `frontend/src/config.js` with your backend URL:
-```javascript
-production: {
-  apiBaseUrl: 'https://your-backend-url.com/api',
-}
-```
-
-### Environment Variables
-Set these in your backend hosting service:
-- `OPENAI_API_KEY`: Your OpenAI API key
-- `PORT`: Port number (usually set automatically)
-
-## Testing Deployment
-
-1. **Frontend**: Visit `https://apoorve73.github.io/prompt-introspector`
-2. **Backend**: Test your API endpoints
-3. **Integration**: Ensure frontend can communicate with backend
-
-## Troubleshooting
-
-### Common Issues:
-- **CORS errors**: Ensure backend allows requests from GitHub Pages domain
-- **API key issues**: Check environment variables in backend hosting
-- **Build failures**: Check for syntax errors in React code
-
-### CORS Configuration
-Your backend already includes CORS middleware, but you may need to update it for production:
-```javascript
-app.use(cors({
-  origin: ['https://apoorve73.github.io', 'http://localhost:3000']
-}));
-```
-
-## Next Steps
-1. Deploy backend to your chosen hosting service
-2. Update the production API URL in `frontend/src/config.js`
-3. Deploy frontend to GitHub Pages
-4. Test the complete application
+- **GitHub Pages:** Check Actions tab for deployment status
+- **Vercel:** Check Vercel dashboard for deployment logs
+- **Application:** Monitor browser console for runtime errors
