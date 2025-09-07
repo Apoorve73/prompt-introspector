@@ -14,5 +14,5 @@ const config = {
 // Get current environment
 const environment = process.env.NODE_ENV || "development";
 
-// Export the appropriate config
-export default config[environment];
+// Export the appropriate config with fallback
+export default config[environment] || config.development;
