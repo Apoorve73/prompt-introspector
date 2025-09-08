@@ -20,26 +20,22 @@ const PromptIntrospector = () => {
   const { apiKey, setApiKey, validationError } = useApiKey(backendUrl);
 
   // Memoized tab change handler
-  const handleTabChange = useCallback((tabId) => {
+  const handleTabChange = useCallback(tabId => {
     setActiveTab(tabId);
   }, []);
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-white text-gray-900" style={{ padding: 'var(--spacing-xl)' }}>
-        <div className="max-w-6xl mx-auto">
+      <div className='min-h-screen bg-white text-gray-900' style={{ padding: 'var(--spacing-xl)' }}>
+        <div className='max-w-6xl mx-auto'>
           {/* Header */}
-          <header className="text-center mb-8">
-            <h1 className="text-4xl font-bold mb-2">{APP_CONFIG.TITLE}</h1>
-            <p className="text-lg text-gray-600">{APP_CONFIG.SUBTITLE}</p>
+          <header className='text-center mb-8'>
+            <h1 className='text-4xl font-bold mb-2'>{APP_CONFIG.TITLE}</h1>
+            <p className='text-lg text-gray-600'>{APP_CONFIG.SUBTITLE}</p>
           </header>
 
           {/* Tab Navigation */}
-          <TabNavigation 
-            activeTab={activeTab} 
-            setActiveTab={handleTabChange}
-            className="mb-8"
-          />
+          <TabNavigation activeTab={activeTab} setActiveTab={handleTabChange} className='mb-8' />
 
           {/* API Key Input */}
           <ApiKeyInput
@@ -47,20 +43,16 @@ const PromptIntrospector = () => {
             setApiKey={setApiKey}
             isAnalyzing={false}
             backendUrl={backendUrl}
-            className="mb-8"
+            className='mb-8'
           />
 
           {/* Error Display */}
-          {validationError && (
-            <div className="alert alert-error mb-8">
-              {validationError}
-            </div>
-          )}
+          {validationError && <div className='alert alert-error mb-8'>{validationError}</div>}
 
           {/* Main Content */}
-          <main role="main">
+          <main role='main'>
             {activeTab === 'introspector' && (
-              <div role="tabpanel" id="tabpanel-introspector" aria-labelledby="tab-introspector">
+              <div role='tabpanel' id='tabpanel-introspector' aria-labelledby='tab-introspector'>
                 <ErrorBoundary>
                   <TokenIntrospector
                     apiKey={apiKey}
@@ -72,7 +64,7 @@ const PromptIntrospector = () => {
             )}
 
             {activeTab === 'temperature' && (
-              <div role="tabpanel" id="tabpanel-temperature" aria-labelledby="tab-temperature">
+              <div role='tabpanel' id='tabpanel-temperature' aria-labelledby='tab-temperature'>
                 <ErrorBoundary>
                   <TemperatureComparison
                     apiKey={apiKey}
